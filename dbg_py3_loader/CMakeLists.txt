@@ -19,8 +19,8 @@ include_directories(includes)
 
 # 包含x64dbg的lib文件
 add_library(x64dbg INTERFACE)
-target_include_directories(x64dbg INTERFACE "src/includes/pluginsdk")
-target_link_directories(x64dbg INTERFACE "src/includes/pluginsdk")
+target_include_directories(x64dbg INTERFACE "includes/pluginsdk")
+target_link_directories(x64dbg INTERFACE "includes/pluginsdk")
 
 # 查找src文件夹下所有的.cpp、.c和.hpp文件
 file(GLOB SRC_FILES "src/*.cpp" "src/*.c" "src/*.hpp")
