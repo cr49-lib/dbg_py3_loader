@@ -1,6 +1,8 @@
 #pragma once
 
 // Plugin information
+#define PLUGIN_NAME "dbg_py3_loader"
+
 #ifndef PLUGIN_NAME
 #error You need to define PLUGIN_NAME
 #endif // PLUGIN_NAME
@@ -33,21 +35,21 @@
 #include "pluginsdk/XEDParse/XEDParse.h"
 
 #ifdef _WIN64
-#pragma comment(lib, "pluginsdk/x64dbg.lib")
-#pragma comment(lib, "pluginsdk/x64bridge.lib")
-#pragma comment(lib, "pluginsdk/DeviceNameResolver/DeviceNameResolver_x64.lib")
-#pragma comment(lib, "pluginsdk/jansson/jansson_x64.lib")
-#pragma comment(lib, "pluginsdk/lz4/lz4_x64.lib")
-#pragma comment(lib, "pluginsdk/TitanEngine/TitanEngine_x64.lib")
-#pragma comment(lib, "pluginsdk/XEDParse/XEDParse_x64.lib")
+#pragma comment(lib, "x64dbg.lib")
+#pragma comment(lib, "x64bridge.lib")
+#pragma comment(lib, "DeviceNameResolver/DeviceNameResolver_x64.lib")
+#pragma comment(lib, "jansson/jansson_x64.lib")
+#pragma comment(lib, "lz4/lz4_x64.lib")
+#pragma comment(lib, "TitanEngine/TitanEngine_x64.lib")
+#pragma comment(lib, "XEDParse/XEDParse_x64.lib")
 #else
-#pragma comment(lib, "pluginsdk/x32dbg.lib")
-#pragma comment(lib, "pluginsdk/x32bridge.lib")
-#pragma comment(lib, "pluginsdk/DeviceNameResolver/DeviceNameResolver_x86.lib")
-#pragma comment(lib, "pluginsdk/jansson/jansson_x86.lib")
-#pragma comment(lib, "pluginsdk/lz4/lz4_x86.lib")
-#pragma comment(lib, "pluginsdk/TitanEngine/TitanEngine_x86.lib")
-#pragma comment(lib, "pluginsdk/XEDParse/XEDParse_x86.lib")
+#pragma comment(lib, "x32dbg.lib")
+#pragma comment(lib, "x32bridge.lib")
+#pragma comment(lib, "DeviceNameResolver/DeviceNameResolver_x86.lib")
+#pragma comment(lib, "jansson/jansson_x86.lib")
+#pragma comment(lib, "lz4/lz4_x86.lib")
+#pragma comment(lib, "TitanEngine/TitanEngine_x86.lib")
+#pragma comment(lib, "XEDParse/XEDParse_x86.lib")
 #endif //_WIN64
 
 #define Cmd(x) DbgCmdExecDirect(x)

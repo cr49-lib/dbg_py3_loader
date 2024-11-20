@@ -1,5 +1,7 @@
 #include "pluginmain.h"
 #include "plugin.h"
+#include <windows.h>
+#include "pluginsdk/_plugins.h"
 
 // NOTE: This is mostly just boilerplate code, generally you work in plugin.cpp
 // Reference: https://help.x64dbg.com/en/latest/developers/plugins/basics.html#exports

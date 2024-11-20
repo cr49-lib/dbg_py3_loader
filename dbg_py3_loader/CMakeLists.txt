@@ -13,41 +13,28 @@ include_directories(${Python3_INCLUDE_DIRS})
 # 包含Python3的库
 link_libraries(${Python3_LIBRARIES})
 
+
 # 包含./includes
 include_directories(includes)
 
-#add_library(dbg_py3_loader SHARED "src/exports.cpp")
+# 包含x64dbg的lib文件
+add_library(x64dbg INTERFACE)
+target_include_directories(x64dbg INTERFACE "src/includes/pluginsdk")
+target_link_directories(x64dbg INTERFACE "src/includes/pluginsdk")
 
-include("cmake/msvc-static-runtime.cmake")
-include("cmake/msvc-configurations.cmake")
+# 查找src文件夹下所有的.cpp、.c和.hpp文件
+file(GLOB SRC_FILES "src/*.cpp" "src/*.c" "src/*.hpp")
 
-message(STATUS "Fetching x64dbg...")
-FetchContent_Declare(x64dbg
-	URL
-		"https://downloads.sourceforge.net/project/x64dbg/snapshots/snapshot_2023-06-10_18-05.zip"
-	URL_HASH
-		SHA1=04468bd61fb36d6b10d17f342f03ef12f5b2ce62
-)
-FetchContent_MakeAvailable(x64dbg)
+add_library(dbg_py3_loader SHARED ${SRC_FILES})
+target_link_libraries(dbg_py3_loader PRIVATE x64dbg)
 
-
-include("cmake/x64dbg.cmake")
-
-set(PluginTemplate_SOURCES
-	"src/plugin.cpp"
-	"src/pluginmain.cpp"
-	"src/plugin.h"
-	"src/pluginmain.h"
-	cmake.toml
-)
-
-x64dbg_plugin(PluginTemplate)
-
-target_sources(PluginTemplate PRIVATE ${PluginTemplate_SOURCES})
-source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${PluginTemplate_SOURCES})
-
+# 不同平台的后缀名
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set_target_properties(dbg_py3_loader PROPERTIES SUFFIX ".dp64")
+else()
+    set_target_properties(dbg_py3_loader PROPERTIES SUFFIX ".dp32")
+endif()
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET dbg_py3_loader PROPERTY CXX_STANDARD 20)
 endif()
-
