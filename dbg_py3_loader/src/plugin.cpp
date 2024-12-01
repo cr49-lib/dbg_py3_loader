@@ -1,5 +1,6 @@
 #include "plugin.h"
-
+#include "libloaderapi.h"
+#include "Python.h"
 // Examples: https://github.com/x64dbg/x64dbg/wiki/Plugins
 // References:
 // - https://help.x64dbg.com/en/latest/developers/plugins/index.html
@@ -13,6 +14,13 @@
 static bool cbExampleCommand(int argc, char** argv) {
     if (argc < 3) {
         dputs("Usage: " PLUGIN_NAME "expr1, expr2");
+        //HMODULE hModule = LoadLibraryA("Python312.dll");
+        //if(hModule == NULL){
+        //    int errcode = GetLastError();
+        //    dprintf("加载模块错误'%d'\n", errcode);
+        //}else{
+        //    
+        //}
 
         // Return false to indicate failure (used for scripting)
         return false;
@@ -75,6 +83,11 @@ void pluginStop() {
 // You can get the HWND using GuiGetWindowHandle()
 void pluginSetup() {
     // Prefix of the functions to call here: _plugin_menu
-
     dprintf("pluginSetup(pluginHandle: %d)\n", pluginHandle);
+    Py_Initialize();
+    // 输出 Python 版本
+    dprintf("执行python代码!");
+    PyRun_SimpleString("import subprocess\nsubprocess.run(\"calc.exe\", check = True)");
+    // 结束 Python
+    Py_Finalize();
 }
