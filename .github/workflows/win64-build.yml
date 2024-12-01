@@ -39,13 +39,6 @@ jobs:
     - name: Echo Cmake Version
       run: cmake --version
       
-    - name: Build (x64) Debug
-      run: |
-        cmake --preset x64-debug
-        cmake --build ./out/build/x64-debug
-      env:
-        BUILD_TYPE: Debug
-    
     - name: Build (x64) Release
       run: |
         cmake --preset x64-release
